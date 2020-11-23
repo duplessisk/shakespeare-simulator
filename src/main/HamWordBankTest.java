@@ -6,8 +6,8 @@ import java.util.*;
 
 class HamWordBankTest {
 
-    HamWordBank hamWordList;
     Scanner hamFile;
+    HamWordBank hamWordList;
 
     @BeforeEach
     void init() throws FileNotFoundException {
@@ -29,6 +29,13 @@ class HamWordBankTest {
             numWords += 1;
         }
         assertTrue(hamWordList.getSize() == numWords);
+    }
+
+    @Test
+    void getWord_isNotNull_ReturnTrue() {
+        for (int i = 0; i < hamWordList.getSize(); i++) {
+            assertFalse(hamWordList.getWord(i) == null);
+        }
     }
 
     @Test
