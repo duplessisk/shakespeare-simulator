@@ -1,15 +1,10 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class Play {
 
-    private Map<String, Map<String,Integer>> hamWordDict;
+    private Map<String, Map<String, Integer>> wordDict;
 
-    public Play(Scanner playFile) {
-        List<String> wordList = initWordList(playFile);
-    }
+    public Play() {}
 
     public List<String> initWordList(Scanner inputFile) {
         List<String> wordList = new ArrayList();
@@ -19,4 +14,25 @@ public class Play {
         return wordList;
     }
 
+    public Map<String, Map<String, Integer>> initWordDict(List<String> wordList) {
+        wordDict = new HashMap();
+        for (int i = 0; i < wordList.size() - 1; i++) {
+            String word = wordList.get(i);
+            String nextWord = wordList.get(i + 1);
+            if (wordDict.keySet().contains(word)) {
+                Map<String, Integer> subDict = wordDict.get(word);
+                if (subDict.keySet().contains(nextWord)) {
+                    subDict.put(nextWord, subDict.get(nextWord) + 1);
+                } else {
+                    subDict.put(nextWord,1);
+                }
+            } else {
+                wordDict.put(word,new HashMap());
+                Map<String, Integer> subDict = wordDict.get(word);
+                subDict.put(nextWord,1);
+            }
+            System.out.println();
+        }
+        return wordDict;
+    }
 }
