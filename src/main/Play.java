@@ -17,8 +17,7 @@ public class Play {
     public Map<String, Map<String, Integer>> initWordDict(List<String> wordList) {
         wordDict = new HashMap();
         for (int i = 0; i < wordList.size() - 1; i++) {
-            String word = wordList.get(i);
-            String nextWord = wordList.get(i + 1);
+            String word = wordList.get(i), nextWord = wordList.get(i + 1);
             if (wordDict.keySet().contains(word)) {
                 Map<String, Integer> subDict = wordDict.get(word);
                 if (subDict.keySet().contains(nextWord)) {
@@ -31,8 +30,13 @@ public class Play {
                 Map<String, Integer> subDict = wordDict.get(word);
                 subDict.put(nextWord,1);
             }
-            System.out.println();
         }
         return wordDict;
     }
+
+    public double weightedCounts(String word, Map<String,Integer> subDict) {
+
+        return 0;
+    }
+
 }

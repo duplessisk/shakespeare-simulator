@@ -9,49 +9,67 @@ class PlayTest {
 
     Scanner playFile;
     Play play;
-    List<String> mockWordList;
+    List<String> wordList;
 
     @BeforeEach
     void init() throws FileNotFoundException {
         playFile = new Scanner(new File("lib/corpora/Hamlet.txt"));
         play = new Play();
-        mockWordList = play.initWordList(playFile).subList(0,100);
+        wordList = play.initWordList(playFile);
+
     }
 
     @Test
     void initWordList_isEmpty_returnFalse() {
-        assertFalse(mockWordList.isEmpty());
+        assertFalse(wordList.isEmpty());
     }
 
     @Test
     void initWordDict_noKeys_returnFalse() {
-        assertFalse(play.initWordDict(mockWordList).keySet().isEmpty());
+        assertFalse(play.initWordDict(wordList).keySet().isEmpty());
     }
 
     @Test
     void initWordDict_emptyKeySet_returnFalse() {
         // create sample data set
-        Map<String, Map<String,Integer>> mockWordDict = play.initWordDict(mockWordList);
-        assertFalse(mockWordDict.keySet().isEmpty());
-        for (String key : mockWordDict.keySet()) {
-            assertFalse(mockWordDict.get(key).keySet().isEmpty());
+        Map<String, Map<String,Integer>> wordDict = play.initWordDict(wordList);
+        assertFalse(wordDict.keySet().isEmpty());
+        for (String key : wordDict.keySet()) {
+            assertFalse(wordDict.get(key).keySet().isEmpty());
         }
     }
 
     @Test
     void initWordDict_correctNumValues_returnTrue() {
-        Map<String, Map<String,Integer>> mockWordDict = play.initWordDict(mockWordList);
-        assertFalse(mockWordDict.keySet().isEmpty());
+        Map<String, Map<String,Integer>> wordDict = play.initWordDict(wordList);
+        assertFalse(wordDict.keySet().isEmpty());
         int totalNumValues = 0;
-        for (String key : mockWordDict.keySet()) {
-            Map<String,Integer> subDict = mockWordDict.get(key);
+        for (String key : wordDict.keySet()) {
+            Map<String,Integer> subDict = wordDict.get(key);
             for (String subKey : subDict.keySet()) {
                 totalNumValues += subDict.get(subKey);
             }
         }
+        System.out.println(wordDict.get("'Tis").toString());
+        System.out.println(wordDict.get("a").toString());
         assertFalse(totalNumValues == 0);
-        System.out.println("totalNumValues: " + totalNumValues);
-        System.out.println("mockWordList size: " + (mockWordList.size() - 1));
-        assertTrue(totalNumValues == mockWordList.size() - 1);
+        assertTrue(totalNumValues == wordList.size() - 1);
+    }
+
+    @Test
+    void nextWordsWeighted_maxSumIsOne_returnTrue() {
+        Map<String, Map<String, Integer>> wordDict = play.initWordDict(wordList);
+        Set<String> keySet = wordDict.keySet();
+        assertFalse(wordDict.keySet().isEmpty());
+        for (String outerKey : keySet) {
+            Iterator<String> subKeysItr = wordDict.get(outerKey).keySet().iterator();
+            assertTrue(wordDict.get(outerKey).get(subKeysItr.next()) == 0);
+            while (subKeysItr.hasNext()) {
+                String nextKey = subKeysItr.next();
+                if (!subKeysItr.hasNext()) {
+                    assertTrue(wordDict.get(outerKey).get(nextKey) == 1);
+                }
+            }
+        }
     }
 }
