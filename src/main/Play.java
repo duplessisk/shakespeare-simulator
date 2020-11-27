@@ -60,11 +60,13 @@ public class Play {
         return totalWordCount;
     }
 
-    public List<String> initSentence() {
-        List<String> sentence = new ArrayList();
-        String nextKey = "The";
-        for (int i = 0; i < 10; i++) {
-            sentence.add(nextWord(nextKey));
+    public String initSentence() {
+        String sentence = "";
+        String nextKey = "Thy";
+        sentence += nextKey;
+        while(!nextKey.contains(".") && !nextKey.contains("?") && !nextKey.contains("!")) {
+            nextKey = nextWord(nextKey);
+            sentence += " " + nextKey.toLowerCase();
         }
         return sentence;
     }

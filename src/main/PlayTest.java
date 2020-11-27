@@ -70,7 +70,6 @@ class PlayTest {
         Set<String> keySet = wordMap.keySet();
         assertFalse(wordMap.keySet().isEmpty());
         for (String outerKey : keySet) {
-            System.out.println(wordMap.get(outerKey).toString());
             Iterator<String> subKeysItr = wordMap.get(outerKey).keySet().iterator();
             while (subKeysItr.hasNext()) {
                 String nextKey = subKeysItr.next();
@@ -86,17 +85,45 @@ class PlayTest {
 
     @Test
     void initSentence_isEmpty_returnFalse() {
-        for (int i = 0; i < 1000; i++) {
-            List<String> sentence = play.initSentence();
-            assertFalse(sentence.isEmpty());
+        play.initWordMap(wordList);
+        for (int i = 0; i < 50; i++) {
+            play.setWeightedCounts();
+            String sentence = play.initSentence();
+            assertFalse(sentence.equals(""));
         }
     }
 
     @Test
     void initSentence_noVoid_returnTrue() {
+        play.initWordMap(wordList);
+        play.setWeightedCounts();
         for (int i = 0; i < 1000; i++) {
-            List<String> sentence = play.initSentence();
-            assertFalse(sentence.contains("ERROR"));
+            String sentence = play.initSentence();
+            StringTokenizer sentenceTokens = new StringTokenizer(sentence);
+            while (sentenceTokens.hasMoreTokens()) {
+                assertFalse(sentenceTokens.nextToken().equals("ERROR"));
+            }
+        }
+    }
+
+    @Test
+    void  initSentence_endsInPeriod_returnTrue() {
+        play.initWordMap(wordList);
+        play.setWeightedCounts();
+        for (int i = 0; i < 1000; i++) {
+            String sentence = play.initSentence();
+            StringTokenizer sentenceTokens = new StringTokenizer(sentence);
+            int count = 0;
+            while (sentenceTokens.hasMoreTokens()) {
+                String nextToken = sentenceTokens.nextToken();
+                if (!sentenceTokens.hasMoreTokens()) {
+                    assertTrue(nextToken.contains(".") || nextToken.contains("?") || nextToken.contains("!"));
+                }
+                count += 1;
+            }
+            if (count >= 2 && count <= 10) {
+                System.out.println(sentence);
+            }
         }
     }
 }
