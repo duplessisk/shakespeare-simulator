@@ -60,9 +60,9 @@ public class Play {
         return totalWordCount;
     }
 
-    public String initSentence() {
+    public String initSentence(String rootWord) {
         String sentence = "";
-        String nextKey = "Thy";
+        String nextKey = rootWord;
         sentence += nextKey;
         while(!nextKey.contains(".") && !nextKey.contains("?") && !nextKey.contains("!")) {
             nextKey = nextWord(nextKey);
