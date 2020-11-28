@@ -10,19 +10,21 @@ class PlayTest {
     Scanner playFile;
     Play play;
     List<String> wordList;
+    Map<String, Map<String,Double>> wordMap;
 
     @BeforeEach
     void init() throws FileNotFoundException {
         playFile = new Scanner(new File("lib/corpora/Hamlet.txt"));
         play = new Play();
         wordList = play.initWordList(playFile);
+        wordMap = play.initWordMap(wordList);
     }
 
     @Test
     void initWordList_isEmpty_returnFalse() {
         assertFalse(wordList.isEmpty());
     }
-
+    
     @Test
     void initWordMap_noKeys_returnFalse() {
         assertFalse(play.initWordMap(wordList).keySet().isEmpty());
@@ -30,8 +32,6 @@ class PlayTest {
 
     @Test
     void initWordMap_emptyKeySet_returnFalse() {
-        // create sample data set
-        Map<String, Map<String,Double>> wordMap = play.initWordMap(wordList);
         assertFalse(wordMap.keySet().isEmpty());
         for (String key : wordMap.keySet()) {
             assertFalse(wordMap.get(key).keySet().isEmpty());
@@ -40,7 +40,6 @@ class PlayTest {
 
     @Test
     void initWordMap_correctNumValues_returnTrue() {
-        Map<String, Map<String,Double>> wordMap = play.initWordMap(wordList);
         assertFalse(wordMap.keySet().isEmpty());
         int totalNumValues = 0;
         for (String key : wordMap.keySet()) {
@@ -55,7 +54,6 @@ class PlayTest {
 
     @Test
     void totalCount_notZero_returnTrue() {
-        Map<String, Map<String, Double>> wordMap = play.initWordMap(wordList);
         assertFalse(wordMap.keySet().isEmpty());
         for (String outerKey : wordMap.keySet()) {
             Map<String,Double> innerMap = wordMap.get(outerKey);
@@ -65,7 +63,6 @@ class PlayTest {
 
     @Test
     void nextWordsWeighted_weightsAreCorrect_returnTrue() {
-        Map<String, Map<String, Double>> wordMap = play.initWordMap(wordList);
         play.setWeightedCounts();
         Set<String> keySet = wordMap.keySet();
         assertFalse(wordMap.keySet().isEmpty());
@@ -98,8 +95,7 @@ class PlayTest {
         play.initWordMap(wordList);
         play.setWeightedCounts();
         for (int i = 0; i < 1000; i++) {
-            String sentence = play.initSentence();
-            StringTokenizer sentenceTokens = new StringTokenizer(sentence);
+            StringTokenizer sentenceTokens = new StringTokenizer(play.initSentence());
             while (sentenceTokens.hasMoreTokens()) {
                 assertFalse(sentenceTokens.nextToken().equals("ERROR"));
             }
@@ -107,22 +103,16 @@ class PlayTest {
     }
 
     @Test
-    void  initSentence_endsInPeriod_returnTrue() {
+    void initSentence_endsInPeriod_returnTrue() {
         play.initWordMap(wordList);
         play.setWeightedCounts();
         for (int i = 0; i < 1000; i++) {
-            String sentence = play.initSentence();
-            StringTokenizer sentenceTokens = new StringTokenizer(sentence);
-            int count = 0;
+            StringTokenizer sentenceTokens = new StringTokenizer(play.initSentence());
             while (sentenceTokens.hasMoreTokens()) {
                 String nextToken = sentenceTokens.nextToken();
                 if (!sentenceTokens.hasMoreTokens()) {
                     assertTrue(nextToken.contains(".") || nextToken.contains("?") || nextToken.contains("!"));
                 }
-                count += 1;
-            }
-            if (count >= 2 && count <= 10) {
-                System.out.println(sentence);
             }
         }
     }
