@@ -19,8 +19,6 @@ public class Main {
             } else if (!wordList.contains(rootWord)) {
                 System.out.println();
                 System.out.println("Word doesn't exist in corpora");
-            } else if (rootWord.equals("Q") || rootWord.equals("q")) {
-                break;
             } else {
                 initSentences(play, rootWord);
             }
