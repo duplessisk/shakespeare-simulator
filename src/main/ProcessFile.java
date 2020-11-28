@@ -10,7 +10,10 @@ public class ProcessFile {
     }
 
     public List<String> initWordList(String fileName) throws FileNotFoundException {
-        Scanner file = new Scanner(new File(fileName));
+        Scanner inputFile = new Scanner(new File(fileName));
+        while (inputFile.hasNext()) {
+            wordList.add(inputFile.next());
+        }
         return wordList;
     }
 

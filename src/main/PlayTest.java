@@ -7,16 +7,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PlayTest {
 
-    Scanner playFile;
     Play play;
     List<String> wordList;
     Map<String, Map<String,Double>> wordMap;
 
     @BeforeEach
     void init() throws FileNotFoundException {
-        playFile = new Scanner(new File("lib/corpora/Hamlet.txt"));
         play = new Play();
-        wordList = play.initWordList(playFile);
+        ProcessFile pf = new ProcessFile();
+        wordList = pf.initWordList("lib/corpora/Hamlet.txt");
         wordMap = play.initWordMap(wordList);
     }
 

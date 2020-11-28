@@ -4,10 +4,9 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
-        System.out.println("regex branch");
-        Scanner hamlet = new Scanner(new File("lib/corpora/Hamlet.txt"));
+        ProcessFile pf = new ProcessFile();
         Play play = new Play();
-        List<String> wordList = play.initWordList(hamlet);
+        List<String> wordList = pf.initWordList("lib/corpora/Hamlet.txt");
         play.initWordMap(wordList);
         play.setWeightedCounts();
         Scanner userInput = new Scanner(System.in);

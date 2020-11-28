@@ -6,14 +6,6 @@ public class Play {
     private Map<String, Map<String, Double>> wordMap;
 
     public Play() {}
-
-    public List<String> initWordList(Scanner inputFile) {
-        List<String> wordList = new ArrayList();
-        while (inputFile.hasNext()) {
-            wordList.add(inputFile.next());
-        }
-        return wordList;
-    }
     
     public Map<String, Map<String, Double>> initWordMap(List<String> wordList) {
         wordMap = new TreeMap();
