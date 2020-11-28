@@ -24,7 +24,7 @@ class PlayTest {
     void initWordList_isEmpty_returnFalse() {
         assertFalse(wordList.isEmpty());
     }
-    
+
     @Test
     void initWordMap_noKeys_returnFalse() {
         assertFalse(play.initWordMap(wordList).keySet().isEmpty());
@@ -85,7 +85,7 @@ class PlayTest {
         play.initWordMap(wordList);
         for (int i = 0; i < 50; i++) {
             play.setWeightedCounts();
-            String sentence = play.initSentence();
+            String sentence = play.initSentence("The");
             assertFalse(sentence.equals(""));
         }
     }
@@ -95,7 +95,7 @@ class PlayTest {
         play.initWordMap(wordList);
         play.setWeightedCounts();
         for (int i = 0; i < 1000; i++) {
-            StringTokenizer sentenceTokens = new StringTokenizer(play.initSentence());
+            StringTokenizer sentenceTokens = new StringTokenizer(play.initSentence("The"));
             while (sentenceTokens.hasMoreTokens()) {
                 assertFalse(sentenceTokens.nextToken().equals("ERROR"));
             }
@@ -107,7 +107,7 @@ class PlayTest {
         play.initWordMap(wordList);
         play.setWeightedCounts();
         for (int i = 0; i < 1000; i++) {
-            StringTokenizer sentenceTokens = new StringTokenizer(play.initSentence());
+            StringTokenizer sentenceTokens = new StringTokenizer(play.initSentence("The"));
             while (sentenceTokens.hasMoreTokens()) {
                 String nextToken = sentenceTokens.nextToken();
                 if (!sentenceTokens.hasMoreTokens()) {
