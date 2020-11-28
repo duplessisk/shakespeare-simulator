@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
-        System.out.println("master branch");
+        System.out.println("regex branch");
         Scanner hamlet = new Scanner(new File("lib/corpora/Hamlet.txt"));
         Play play = new Play();
         List<String> wordList = play.initWordList(hamlet);
