@@ -1,4 +1,4 @@
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
@@ -12,7 +12,7 @@ class ProcessFileTest {
     List<String> badSymbols;
     List<String> wordList;
 
-    @BeforeAll
+    @BeforeEach
     void init() {
         pf = new ProcessFile();
         badSymbols = Arrays.asList("(");
