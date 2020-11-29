@@ -20,11 +20,6 @@ class PlayTest {
     }
 
     @Test
-    void initWordList_isEmpty_returnFalse() {
-        assertFalse(wordList.isEmpty());
-    }
-
-    @Test
     void initWordMap_noKeys_returnFalse() {
         assertFalse(play.initWordMap(wordList).keySet().isEmpty());
     }

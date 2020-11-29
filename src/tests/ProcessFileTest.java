@@ -15,7 +15,7 @@ class ProcessFileTest {
     @BeforeEach
     void init() {
         pf = new ProcessFile();
-        badSymbols = Arrays.asList("(");
+        badSymbols = Arrays.asList("(",")");
     }
 
     @Test
@@ -24,10 +24,35 @@ class ProcessFileTest {
     }
 
     @Test
+    void filterWords_goodChars_returnFalse() {
+        List<String> mockWordList = Arrays.asList("(For","For)","(For)","(",")");
+        for (String word : mockWordList) {
+            if (pf.filterWords(word)) {
+                System.out.println(word);
+            }
+            assertFalse(pf.filterWords(word));
+        }
+    }
+
+    @Test
+    void filterWords_noBadChars_returnTrue() {
+        List<String> mockWordList = Arrays.asList("For");
+        for (String word : mockWordList) {
+            if (pf.filterWords(word)) {
+                System.out.println(word);
+            }
+            assertTrue(pf.filterWords(word));
+        }
+    }
+
+    @Test
     void initWordList_containsBadWords_returnFalse() throws FileNotFoundException {
         wordList = pf.initWordList("lib/corpora/Hamlet.txt");
         for (String word : wordList) {
             for (String symbol : badSymbols) {
+                if (word.contains(symbol)) {
+                    System.out.println(symbol);
+                }
                 assertFalse(word.contains(symbol));
             }
         }
