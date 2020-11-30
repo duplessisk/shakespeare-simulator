@@ -56,11 +56,15 @@ public class Play {
         String sentence = "";
         String nextKey = rootWord;
         sentence += nextKey;
-        while(!nextKey.contains(".") && !nextKey.contains("?") && !nextKey.contains("!")) {
+        while(continueSentence(nextKey)) {
             nextKey = nextWord(nextKey);
             sentence += " " + nextKey.toLowerCase();
         }
         return sentence;
+    }
+
+    public boolean continueSentence(String nextKey) {
+        return !nextKey.contains(".") && !nextKey.contains("?") && !nextKey.contains("!");
     }
 
     public String nextWord(String nextKey) {

@@ -10,11 +10,12 @@ public class Main {
         play.initWordMap(wordList);
         play.setWeightedCounts();
         Scanner userInput = new Scanner(System.in);
+        boolean continueSim = true;
         String rootWord;
-        while (true) {
+        do {
             rootWord = getUserInput(userInput);
             if (rootWord.equals("Q") || rootWord.equals("q")) {
-                break;
+                continueSim = false;
             } else if (!wordList.contains(rootWord)) {
                 System.out.println();
                 System.out.println("Word doesn't exist in corpora");
@@ -23,7 +24,7 @@ public class Main {
                 System.out.println();
                 System.out.println(sentence);
             }
-        }
+        } while (continueSim);
     }
 
     public static String getUserInput (Scanner userInput) {
