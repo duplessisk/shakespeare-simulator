@@ -56,7 +56,7 @@ public class Play {
         String sentence = "";
         String nextKey = rootWord;
         sentence += nextKey;
-        while(continueSentence(nextKey)) {
+        while(continueSentence(nextKey) ) {
             nextKey = nextWord(nextKey);
             sentence += " " + nextKey.toLowerCase();
         }
@@ -65,6 +65,25 @@ public class Play {
 
     public boolean continueSentence(String nextKey) {
         return !nextKey.contains(".") && !nextKey.contains("?") && !nextKey.contains("!");
+    }
+
+    public String getSentence(String rootWord) {
+        if (rootWord.contains(".") || rootWord.contains("?") || rootWord.contains("!")) {
+            return "Sentence can't be started with a special character";
+        } else {
+            while (true) {
+                String sentence = initSentence(rootWord);
+                StringTokenizer sentenceTokens = new StringTokenizer(sentence);
+                int wordCount = 0;
+                while (sentenceTokens.hasMoreTokens()) {
+                    sentenceTokens.nextToken();
+                    wordCount += 1;
+                }
+                if (wordCount >= 2 && wordCount <= 10) {
+                    return sentence;
+                }
+            }
+        }
     }
 
     public String nextWord(String nextKey) {

@@ -14,15 +14,13 @@ public class Main {
         String rootWord;
         do {
             rootWord = getUserInput(userInput);
+            System.out.println();
             if (rootWord.equals("Q") || rootWord.equals("q")) {
                 continueSim = false;
             } else if (!wordList.contains(rootWord)) {
-                System.out.println();
                 System.out.println("Word doesn't exist in corpora");
             } else {
-                String sentence = initSentences(play, rootWord);
-                System.out.println();
-                System.out.println(sentence);
+                System.out.println(play.getSentence(rootWord));
             }
         } while (continueSim);
     }
@@ -33,24 +31,5 @@ public class Main {
         System.out.println("Hamlet, thy, devil, hitherto, behooves, thou, O,");
         System.out.print("Please select a root word (q to quit): ");
         return userInput.nextLine();
-    }
-
-    public static String initSentences(Play play, String rootWord) {
-        if (rootWord.contains(".") || rootWord.contains("?") || rootWord.contains("!")) {
-            return "Sentence can't be started with special character";
-        } else {
-            while (true) {
-                String sentence = play.initSentence(rootWord);
-                StringTokenizer sentenceTokens = new StringTokenizer(sentence);
-                int wordCount = 0;
-                while (sentenceTokens.hasMoreTokens()) {
-                    sentenceTokens.nextToken();
-                    wordCount += 1;
-                }
-                if (wordCount >= 2 && wordCount <= 10) {
-                    return sentence;
-                }
-            }
-        }
     }
 }

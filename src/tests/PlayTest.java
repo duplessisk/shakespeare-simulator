@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.*;
 
 import java.io.*;
+import java.time.Duration;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -110,4 +111,17 @@ class PlayTest {
             }
         }
     }
+
+    @Test
+    void getSentence_infinteLoop_returnFalse() {
+        play.setWeightedCounts();
+        assertFalse(wordList.isEmpty());
+        for (int i = 0; i < wordList.size() - 1; i++) {
+            String rootWord = wordList.get(i);
+            assertTimeoutPreemptively(Duration.ofMillis(3000), () -> {
+                play.getSentence(rootWord);
+            });
+        }
+    }
+
 }
