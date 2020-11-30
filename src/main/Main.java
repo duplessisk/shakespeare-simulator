@@ -23,7 +23,7 @@ public class Main {
             }
         }
     }
-
+    
     public static String getUserInput (Scanner userInput) {
         System.out.println();
         System.out.print("Here is a possible list of root words: ");

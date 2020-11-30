@@ -95,7 +95,7 @@ class PlayTest {
             }
         }
     }
-
+    
     @Test
     void initSentence_endsInPeriod_returnTrue() {
         play.initWordMap(wordList);
