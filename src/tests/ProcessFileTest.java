@@ -24,23 +24,18 @@ class ProcessFileTest {
     }
 
     @Test
-    void filterWords_goodChars_returnFalse() {
+    void filterWords_testBadChars_returnFalse() {
         List<String> mockWordList = Arrays.asList("(For","For)","(For)","(",")");
         for (String word : mockWordList) {
-            if (pf.filterWords(word)) {
-                System.out.println(word);
-            }
+            System.out.println(word);
             assertFalse(pf.filterWords(word));
         }
     }
 
     @Test
-    void filterWords_noBadChars_returnTrue() {
+    void filterWords_testGoodChars_returnTrue() {
         List<String> mockWordList = Arrays.asList("For");
         for (String word : mockWordList) {
-            if (pf.filterWords(word)) {
-                System.out.println(word);
-            }
             assertTrue(pf.filterWords(word));
         }
     }

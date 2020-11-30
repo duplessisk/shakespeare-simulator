@@ -26,10 +26,12 @@ public class ProcessFile {
     }
 
     public boolean filterWords(String word) {
-        String r1 = ".*[\\)]+";
-        String r2 = "[\\(]+.*";
+        String r1 = ".*[\\(].*";
+        String r2 = ".*[\\)].*";
+
         Pattern pt1 = Pattern.compile(r1);
         Pattern pt2 = Pattern.compile(r2);
+
         Matcher mt1 = pt1.matcher(word);
         Matcher mt2 = pt2.matcher(word);
 
