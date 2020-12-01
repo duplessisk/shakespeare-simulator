@@ -113,15 +113,42 @@ class PlayTest {
     }
 
     @Test
-    void getSentence_infinteLoop_returnFalse() {
+    void sentenceCorrectLen_correctLoop_returnTrue() {
+        String[] mockWrongSize = {"","Hamlet","one two three four five six seven eight nine ten eleven"};
+        String[] mockRightSize = {"Hamlet yep", "Begone foul beast!", "one two three four five six seven eight nine ten"};
+        for (int i = 0; i < mockRightSize.length; i++) {
+            assertFalse(play.sentenceCorrectLen(mockWrongSize[i]));
+        }
+        for (int i = 0; i < mockRightSize.length; i++) {
+            assertTrue(play.sentenceCorrectLen(mockRightSize[i]));
+        }
+    }
+
+    @Test
+    void buildSentence_rejectsSpecialCharacters_returnTrue() {
+        play.setWeightedCounts();
+    }
+
+    @Test
+    void buildSentence_infiniteLoop_returnFalse() {
         play.setWeightedCounts();
         assertFalse(wordList.isEmpty());
         for (int i = 0; i < wordList.size() - 1; i++) {
             String rootWord = wordList.get(i);
+            System.out.println(rootWord);
             assertTimeoutPreemptively(Duration.ofMillis(3000), () -> {
-                play.getSentence(rootWord);
+                play.buildSentence(rootWord);
             });
         }
+    }
+
+    @Test
+    void getSentence_correctOutput_returnTrue() {
+        String[] specialCharacters = {"Hamlet ran.", "Hamlet ran?", "Hamlet ran!"};
+        for (int i = 0; i < specialCharacters.length; i++) {
+            assertTrue(play.getSentence(specialCharacters[i]).equals("Sentence can't be started with a special character"));
+        }
+        //assertFalse(play.getSentence("Hamlet ran").equals("Sentence can't be started with a special character"));
     }
 
 }

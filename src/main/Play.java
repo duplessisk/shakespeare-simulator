@@ -71,19 +71,28 @@ public class Play {
         if (rootWord.contains(".") || rootWord.contains("?") || rootWord.contains("!")) {
             return "Sentence can't be started with a special character";
         } else {
-            while (true) {
-                String sentence = initSentence(rootWord);
-                StringTokenizer sentenceTokens = new StringTokenizer(sentence);
-                int wordCount = 0;
-                while (sentenceTokens.hasMoreTokens()) {
-                    sentenceTokens.nextToken();
-                    wordCount += 1;
-                }
-                if (wordCount >= 2 && wordCount <= 10) {
-                    return sentence;
-                }
+            return buildSentence(rootWord);
+        }
+    }
+
+    public String buildSentence(String rootWord) {
+        while (true) {
+            System.out.println(rootWord);
+            String sentence = initSentence(rootWord);
+            if (sentenceCorrectLen(sentence)) {
+                return sentence;
             }
         }
+    }
+
+    public boolean sentenceCorrectLen(String sentence) {
+        int wordCount = 0;
+        StringTokenizer sentenceTokens = new StringTokenizer(sentence);
+        while (sentenceTokens.hasMoreTokens()) {
+            sentenceTokens.nextToken();
+            wordCount += 1;
+        }
+        return wordCount >=2 && wordCount <= 10;
     }
 
     public String nextWord(String nextKey) {
