@@ -96,7 +96,7 @@ class PlayTest {
             }
         }
     }
-    
+
     @Test
     void initSentence_endsInPeriod_returnTrue() {
         play.initWordMap(wordList);
@@ -117,10 +117,10 @@ class PlayTest {
         String[] mockWrongSize = {"","Hamlet","one two three four five six seven eight nine ten eleven"};
         String[] mockRightSize = {"Hamlet yep", "Begone foul beast!", "one two three four five six seven eight nine ten"};
         for (int i = 0; i < mockRightSize.length; i++) {
-            assertFalse(play.sentenceCorrectLen(mockWrongSize[i]));
+            assertTrue(play.sentenceIncorrectLen(mockWrongSize[i]));
         }
         for (int i = 0; i < mockRightSize.length; i++) {
-            assertTrue(play.sentenceCorrectLen(mockRightSize[i]));
+            assertFalse(play.sentenceIncorrectLen(mockRightSize[i]));
         }
     }
 
@@ -130,14 +130,13 @@ class PlayTest {
     }
 
     @Test
-    void buildSentence_infiniteLoop_returnFalse() {
+    void getSentence_infiniteLoop_returnFalse() {
         play.setWeightedCounts();
         assertFalse(wordList.isEmpty());
         for (int i = 0; i < wordList.size() - 1; i++) {
             String rootWord = wordList.get(i);
-            System.out.println(rootWord);
             assertTimeoutPreemptively(Duration.ofMillis(3000), () -> {
-                play.buildSentence(rootWord);
+                play.getSentence(rootWord);
             });
         }
     }
@@ -148,7 +147,8 @@ class PlayTest {
         for (int i = 0; i < specialCharacters.length; i++) {
             assertTrue(play.getSentence(specialCharacters[i]).equals("Sentence can't be started with a special character"));
         }
-        //assertFalse(play.getSentence("Hamlet ran").equals("Sentence can't be started with a special character"));
+        System.out.println("1");
+        assertFalse(play.getSentence("Hamlet").equals("Sentence can't be started with a special character"));
     }
 
 }

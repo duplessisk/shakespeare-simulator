@@ -63,6 +63,18 @@ public class Play {
         return sentence;
     }
 
+    public String nextWord(String nextKey) {
+        Random rand = new Random();
+        double ran = rand.nextDouble();
+        Map<String,Double> innerMap = wordMap.get(nextKey);
+        for (String innerKey : innerMap.keySet()) {
+            if (ran <= innerMap.get(innerKey)) {
+                return innerKey;
+            }
+        }
+        return "ERROR";
+    }
+
     public boolean continueSentence(String nextKey) {
         return !nextKey.contains(".") && !nextKey.contains("?") && !nextKey.contains("!");
     }
@@ -76,34 +88,21 @@ public class Play {
     }
 
     public String buildSentence(String rootWord) {
-        while (true) {
-            System.out.println(rootWord);
-            String sentence = initSentence(rootWord);
-            if (sentenceCorrectLen(sentence)) {
-                return sentence;
-            }
+        String sentence = "";
+        while (sentenceIncorrectLen(sentence)) {
+            sentence = initSentence(rootWord);
         }
+        return sentence;
     }
 
-    public boolean sentenceCorrectLen(String sentence) {
+    public boolean sentenceIncorrectLen(String sentence) {
         int wordCount = 0;
         StringTokenizer sentenceTokens = new StringTokenizer(sentence);
         while (sentenceTokens.hasMoreTokens()) {
             sentenceTokens.nextToken();
             wordCount += 1;
         }
-        return wordCount >=2 && wordCount <= 10;
+        return wordCount < 2 || wordCount > 10;
     }
 
-    public String nextWord(String nextKey) {
-        Random rand = new Random();
-        double ran = rand.nextDouble();
-        Map<String,Double> innerMap = wordMap.get(nextKey);
-        for (String innerKey : innerMap.keySet()) {
-            if (ran <= innerMap.get(innerKey)) {
-                return innerKey;
-            }
-        }
-        return "ERROR";
-    }
 }
