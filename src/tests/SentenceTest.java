@@ -53,12 +53,11 @@ class SentenceTest {
     }
 
     @Test
-    void abort_senHasTooManyWords_returnTrue() {
-        for (int i = 0; i < 10; i++) {
-            sen.addWord(mockWords[i]);
-            assertFalse(sen.abort());
+    void endSentence_onSpecialCharacter_returnTrue() {
+        String[] specialWords = {"Hamlet.","Hamlet!","Hamlet?"};
+        for (int i = 0; i <= 2; i++) {
+            assertTrue(sen.endSentence(specialWords[i]));
         }
-        sen.addWord(mockWords[mockWords.length - 1]);
-        assertTrue(sen.abort());
+        assertFalse(sen.endSentence("Hamlet"));
     }
 }

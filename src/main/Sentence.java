@@ -18,8 +18,8 @@ public class Sentence {
         return senList.size() >= 2 && senList.size() <= 10;
     }
 
-    public boolean abort() {
-        return senList.size() > 10;
+    public boolean endSentence(String nextKey) {
+        return nextKey.contains(".") || nextKey.contains("?") || nextKey.contains("!");
     }
 
     public int getLen() {
