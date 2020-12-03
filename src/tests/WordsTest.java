@@ -4,20 +4,17 @@ import org.junit.jupiter.api.Test;
 import java.io.FileNotFoundException;
 import java.util.*;
 
-import static java.util.Map.entry;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class WordsTest {
 
     Words words;
-    List<String> wordList;
     Map<String,Double> mockInnerMap;
 
     @BeforeEach
     void init() throws FileNotFoundException {
-        ProcessFile pf = new ProcessFile();
-        wordList = pf.initWordList("lib/corpora/Hamlet.txt");
+        List<String> wordList =
+                ProcessFile.initWordList("lib/corpora/Hamlet.txt");
         words = new Words();
         words.initWordMap(wordList);
         mockInnerMap = new HashMap();
