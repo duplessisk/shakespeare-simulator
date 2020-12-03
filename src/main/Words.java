@@ -51,7 +51,7 @@ public class Words {
         return totalWordCount;
     }
 
-    public String nextWord(Map<String,Double> innerMap, double ran) {
+    public String getNextWord(Map<String,Double> innerMap, double ran) {
         for (String innerKey : innerMap.keySet()) {
             if (ran <= innerMap.get(innerKey)) {
                 return innerKey;

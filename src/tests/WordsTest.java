@@ -84,7 +84,7 @@ class WordsTest {
         double[] values = {0,0.1,0.15,0.25,0.35,0.50,0.75,0.80,0.95};
         Words.weightedCounts(mockInnerMap);
         for (int i = 0; i <= 2; i++) {
-            assertTrue(words.nextWord(mockInnerMap,values[i]).equals(keys[i/3]));
+            assertTrue(words.getNextWord(mockInnerMap,values[i]).equals(keys[i/3]));
         }
     }
 

@@ -1,6 +1,7 @@
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 public class Sentence {
 
@@ -22,6 +23,14 @@ public class Sentence {
         return nextKey.contains(".") || nextKey.contains("?") || nextKey.contains("!");
     }
 
+    public void buildSentence(Words w, String nextWord, Random rand) {
+        addWord(nextWord);
+        while (!endSentence(nextWord)) {
+            nextWord = w.getNextWord(w.getKey(nextWord), rand.nextDouble());
+            addWord(nextWord);
+        }
+    }
+
     public int getLen() {
         return senList.size();
     }
@@ -33,5 +42,9 @@ public class Sentence {
             sen += itr.next() + " ";
         }
         return sen;
+    }
+
+    public void clear() {
+        senList.clear();
     }
 }

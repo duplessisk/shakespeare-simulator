@@ -1,6 +1,10 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.FileNotFoundException;
+import java.time.Duration;
+import java.util.List;
+import java.util.Random;
 import java.util.StringTokenizer;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -59,5 +63,37 @@ class SentenceTest {
             assertTrue(sen.endSentence(specialWords[i]));
         }
         assertFalse(sen.endSentence("Hamlet"));
+    }
+
+    @Test
+    void buildSentence_infiniteLoop_returnFalse() throws FileNotFoundException {
+        ProcessFile pf = new ProcessFile();
+        Random rand = new Random();
+        List<String> wordList = pf.initWordList("lib/corpora/Hamlet.txt");
+        Words w = new Words();
+        w.initWordMap(wordList);
+        w.setWeightedCounts();
+        for (String rootWord : w.getKeySet()) {
+            assertTimeoutPreemptively(Duration.ofMillis(3000), () -> {
+                sen.buildSentence(w,rootWord,rand);
+                sen.clear();
+            });
+        }
+    }
+
+    @Test
+    void buildSentence_nullPointer_returnFalse() throws FileNotFoundException {
+        ProcessFile pf = new ProcessFile();
+        Random rand = new Random();
+        List<String> wordList = pf.initWordList("lib/corpora/Hamlet.txt");
+        Words w = new Words();
+        w.initWordMap(wordList);
+        w.setWeightedCounts();
+        for (int i = 0; i < 1000; i++) {
+            assertTimeoutPreemptively(Duration.ofMillis(3000), () -> {
+                sen.buildSentence(w,"hitherto",rand);
+                //sen.clear();
+            });
+        }
     }
 }
