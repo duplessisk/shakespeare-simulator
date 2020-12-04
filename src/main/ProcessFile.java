@@ -2,12 +2,11 @@ import java.io.*;
 import java.util.*;
 import java.util.regex.*;
 
-/*
- This defines a class that reads in an input file and provides a list containing
- the input file's desired elements
+/**
+ This defines a class that provides a relevant list of words from an input file
  */
 public class ProcessFile {
-    /*
+    /**
      * Reads in input file, returns list containing relevant contents
      * @param fileName - name of the file to be read in
      * @return - list containing the content of interest from the input file
@@ -25,7 +24,7 @@ public class ProcessFile {
         return wordList;
     }
 
-    /*
+    /**
      * Determines if word from the input file should be included
      * @param word - word from input file
      * @return - whether or not the word should be included

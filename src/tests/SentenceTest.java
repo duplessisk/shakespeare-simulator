@@ -72,7 +72,7 @@ class SentenceTest {
         List<String> wordList = pf.initWordList("lib/corpora/Hamlet.txt");
         Words w = new Words();
         w.initWordMap(wordList);
-        w.setWeightedCounts();
+        w.setRelativeFrequencies();
         for (String rootWord : w.getKeySet()) {
             assertTimeoutPreemptively(Duration.ofMillis(3000), () -> {
                 sen.buildSentence(w,rootWord,rand);
@@ -88,7 +88,7 @@ class SentenceTest {
         List<String> wordList = pf.initWordList("lib/corpora/Hamlet.txt");
         Words w = new Words();
         w.initWordMap(wordList);
-        w.setWeightedCounts();
+        w.setRelativeFrequencies();
         for (int i = 0; i < 1000; i++) {
             assertTimeoutPreemptively(Duration.ofMillis(3000), () -> {
                 sen.buildSentence(w,"hitherto",rand);

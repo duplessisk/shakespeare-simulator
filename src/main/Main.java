@@ -9,7 +9,7 @@ public class Main {
         Sentence s = new Sentence();
         List<String> wordList = pf.initWordList("lib/corpora/Hamlet.txt");
         w.initWordMap(wordList);
-        w.setWeightedCounts();
+        w.setRelativeFrequencies();
         Scanner rootWordInput = new Scanner(System.in), continueInput = new Scanner(System.in);
         boolean keepSim = true;
         while (keepSim) {
@@ -22,6 +22,12 @@ public class Main {
         }
     }
 
+    /**
+     * Returns valid root word that user selects
+     * @param userInput - Scanner object that will obtain user input
+     * @param w - Words object
+     * @return - valid root word
+     */
     public static String getUserInput (Scanner userInput, Words w) {
         System.out.println();
         String rootWord = "";
@@ -34,6 +40,14 @@ public class Main {
         return rootWord;
     }
 
+
+    /**
+     * Returns the a valid sentence beginning with the user's root word
+     * @param rootWord - root word that user selected
+     * @param s - sentence object
+     * @param w - Words object
+     * @return - sentence
+     */
     public static String returnSentence(String rootWord, Sentence s, Words w) {
         System.out.println();
         Random rand = new Random();
@@ -44,6 +58,12 @@ public class Main {
         return s.toString();
     }
 
+    /**
+     * Returns whether or not the user's root word is valid
+     * @param w - Words object
+     * @param rootWord - root word that user selected
+     * @return - whether or not the user's root word is valid
+     */
     public static boolean invalidUserInput(Words w, String rootWord) {
         boolean input = false;
         if (rootWord.equals("Q") || rootWord.equals("q")) {

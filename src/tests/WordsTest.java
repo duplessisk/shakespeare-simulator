@@ -9,12 +9,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class WordsTest {
 
     Words words;
+    List<String> wordList;
     Map<String,Double> mockInnerMap;
 
     @BeforeEach
     void init() throws FileNotFoundException {
-        List<String> wordList =
-                ProcessFile.initWordList("lib/corpora/Hamlet.txt");
+        wordList = ProcessFile.initWordList("lib/corpora/Hamlet.txt");
         words = new Words();
         words.initWordMap(wordList);
         mockInnerMap = new HashMap();
@@ -47,7 +47,7 @@ class WordsTest {
 
     @Test
     void setWeightedCounts_weightBoundariesAreCorrect_returnTrue() {
-        words.setWeightedCounts();
+        words.setRelativeFrequencies();
         for (String outerKey : words.getKeySet()) {
             Iterator<String> subKeysItr = words.getKey(outerKey).keySet().iterator();
             Double previousKeyWeight = 0.0;
@@ -69,7 +69,7 @@ class WordsTest {
     void setWeightedCounts_correctWeights_returnTrue() {
         String[] keys = {"one","two","three"};
         double[] values = {0.17,0.5,1.0};
-        Words.weightedCounts(mockInnerMap);
+        Words.relativeFrequencies(mockInnerMap);
         for(int i = 0; i <= 2; i++) {
             assertTrue(round(mockInnerMap.get(keys[i])) == values[i]);
         }
@@ -79,7 +79,7 @@ class WordsTest {
     void nextWord_correctWord_returnTrue() {
         String[] keys = {"one","two","three"};
         double[] values = {0,0.1,0.15,0.25,0.35,0.50,0.75,0.80,0.95};
-        Words.weightedCounts(mockInnerMap);
+        Words.relativeFrequencies(mockInnerMap);
         for (int i = 0; i <= 2; i++) {
             assertTrue(words.getNextWord(mockInnerMap,values[i]).equals(keys[i/3]));
         }
