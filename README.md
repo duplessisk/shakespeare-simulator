@@ -4,7 +4,6 @@ java based CLI application that allows a user to simulate a sentence similar to 
 
 ## Features
 - Unit testing 
-- Map data structure implementation
 
 ## Running the Project locally
 1. Clone this project locally
