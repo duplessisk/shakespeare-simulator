@@ -1,6 +1,6 @@
 # shakespeare-simulator
 ## Overview 
-java based CLI application that allows a user to simulate Shakespeare sentences.
+java based CLI application that allows a user to simulate Shakespeare's writings.
 
 ## Dependencies 
 - JDK
