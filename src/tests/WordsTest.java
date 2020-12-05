@@ -22,12 +22,12 @@ class WordsTest {
     }
 
     @Test
-    void initwords_empty_returnFalse() {
+    void initwords_emptyKeySet_returnFalse() {
         assertFalse(words.getKeySet().isEmpty());
     }
 
     @Test
-    void initwords_emptyKeySet_returnFalse() {
+    void initwords_emptyInnerKeySet_returnFalse() {
         for (String key : words.getKeySet()) {
             assertFalse(words.getKey(key).keySet().isEmpty());
         }
@@ -90,18 +90,16 @@ class WordsTest {
         assertTrue(Words.totalCount(mockInnerMap) == 6);
     }
 
-    @Test
-    void nextWord_correctNextWord_returnTrue() {
-    }
-
     private double round(double num) {
         num = (Math.round(num*100));
         return num/100;
     }
 
     private void buildMockInnerMap() {
-        mockInnerMap.put("one",1.0);
-        mockInnerMap.put("two",2.0);
-        mockInnerMap.put("three",3.0);
+        List<String> keys = Arrays.asList("one","two","three");
+        List<Double> values = Arrays.asList(1.0,2.0,3.0);
+        for (int i = 0; i <= 2; i++) {
+            mockInnerMap.put(keys.get(i),values.get(i));
+        }
     }
 }

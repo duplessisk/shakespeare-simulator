@@ -35,12 +35,13 @@ public class Sentence {
     }
 
     /**
-     * Dete
+     * Determines when the end of a sentence has been reached
      * @param nextKey - next work to be added to the sentence
      * @return - whether or not the next word to be added will end the sentence
      */
     public boolean endSentence(String nextKey) {
-        return nextKey.contains(".") || nextKey.contains("?") || nextKey.contains("!");
+        return nextKey.contains(".") || nextKey.contains("?") ||
+                nextKey.contains("!");
     }
 
     /**

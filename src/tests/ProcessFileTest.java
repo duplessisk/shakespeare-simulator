@@ -30,10 +30,7 @@ class ProcessFileTest {
 
     @Test
     void filterWords_testGoodChars_returnTrue() {
-        List<String> mockWordList = Arrays.asList("For");
-        for (String word : mockWordList) {
-            assertTrue(ProcessFile.filterWords(word));
-        }
+        assertTrue(ProcessFile.filterWords("for"));
     }
 
     @Test
@@ -41,9 +38,6 @@ class ProcessFileTest {
         List<String> wordList = ProcessFile.initWordList("lib/corpora/Hamlet.txt");
         for (String word : wordList) {
             for (String symbol : badSymbols) {
-                if (word.contains(symbol)) {
-                    System.out.println(symbol);
-                }
                 assertFalse(word.contains(symbol));
             }
         }

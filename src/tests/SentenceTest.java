@@ -13,14 +13,25 @@ class SentenceTest {
 
     Sentence sen;
     String[] mockWords;
+    ProcessFile pf;
+    Random rand;
+    List<String> wordList;
+    Words w;
 
     @BeforeEach
-    void init() {
+    void init() throws FileNotFoundException {
         sen = new Sentence();
-        mockWords = new String[]{"one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven"};
+        mockWords = new String[]{"one", "two", "three", "four", "five", "six",
+                "seven", "eight", "nine", "ten", "eleven"};
+        pf = new ProcessFile();
+        rand = new Random();
+        wordList = pf.initWordList("lib/corpora/Hamlet.txt");
+        w = new Words();
+        w.initWordMap(wordList);
+        w.setRelativeFrequencies();
     }
 
-    void addWords(String[] mockWords) {
+    void addWordsToSen(String[] mockWords) {
         for (String word : mockWords) {
             sen.addWord(word);
         }
@@ -28,13 +39,13 @@ class SentenceTest {
 
     @Test
     void addWord_correctNumWords_returnTrue() {
-        addWords(mockWords);
+        addWordsToSen(mockWords);
         assertTrue(sen.getLen() == mockWords.length);
     }
 
     @Test
     void returnSen_stringMatchesMockWords_returnTrue() {
-        addWords(mockWords);
+        addWordsToSen(mockWords);
         StringTokenizer tokens = new StringTokenizer(sen.toString());
         for (String word : mockWords) {
             String token = tokens.nextToken();
@@ -66,13 +77,7 @@ class SentenceTest {
     }
 
     @Test
-    void buildSentence_infiniteLoop_returnFalse() throws FileNotFoundException {
-        ProcessFile pf = new ProcessFile();
-        Random rand = new Random();
-        List<String> wordList = pf.initWordList("lib/corpora/Hamlet.txt");
-        Words w = new Words();
-        w.initWordMap(wordList);
-        w.setRelativeFrequencies();
+    void buildSentence_infiniteLoop_returnFalse() {
         for (String rootWord : w.getKeySet()) {
             assertTimeoutPreemptively(Duration.ofMillis(3000), () -> {
                 sen.buildSentence(w,rootWord,rand);
@@ -82,17 +87,10 @@ class SentenceTest {
     }
 
     @Test
-    void buildSentence_nullPointer_returnFalse() throws FileNotFoundException {
-        ProcessFile pf = new ProcessFile();
-        Random rand = new Random();
-        List<String> wordList = pf.initWordList("lib/corpora/Hamlet.txt");
-        Words w = new Words();
-        w.initWordMap(wordList);
-        w.setRelativeFrequencies();
+    void buildSentence_nullPointer_returnFalse() {
         for (int i = 0; i < 1000; i++) {
             assertTimeoutPreemptively(Duration.ofMillis(3000), () -> {
                 sen.buildSentence(w,"hitherto",rand);
-                //sen.clear();
             });
         }
     }

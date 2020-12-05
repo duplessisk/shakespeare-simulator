@@ -10,7 +10,8 @@ public class Main {
         List<String> wordList = pf.initWordList("lib/corpora/Hamlet.txt");
         w.initWordMap(wordList);
         w.setRelativeFrequencies();
-        Scanner rootWordInput = new Scanner(System.in), continueInput = new Scanner(System.in);
+        Scanner rootWordInput = new Scanner(System.in),
+                continueInput = new Scanner(System.in);
         boolean keepSim = true;
         while (keepSim) {
             String rootWord = getUserInput(rootWordInput,w);
@@ -40,7 +41,6 @@ public class Main {
         return rootWord;
     }
 
-
     /**
      * Returns the a valid sentence beginning with the user's root word
      * @param rootWord - root word that user selected
@@ -68,22 +68,27 @@ public class Main {
         boolean input = false;
         if (rootWord.equals("Q") || rootWord.equals("q")) {
             System.exit(0);
-        } else if (rootWord.contains(".") || rootWord.contains("?") || rootWord.contains("!")) {
-            System.out.println();
-            System.out.println("root word cannot contain a special character.");
-            System.out.println();
-            input = true;
+        } else if (rootWord.contains(".") || rootWord.contains("?") ||
+                rootWord.contains("!")) {
+            input = printUserInputMessage("root word cannot contain " +
+                    "a special character.");
         } else if (rootWord.contains(" ")) {
-            System.out.println();
-            System.out.println("root word must be a single word.");
-            System.out.println();
-            input = true;
+            input = printUserInputMessage("root word must be a single word.");
         } else if (!w.getKeySet().contains(rootWord)) {
-            System.out.println();
-            System.out.println("root word not contained in corpora.");
-            System.out.println();
-            input = true;
+            input = printUserInputMessage("root word not contained in corpora.");
         }
         return input;
+    }
+
+    /**
+     * Prints user input error message to the console and returns true
+     * @param message - message to be printed to the console
+     * @return true
+     */
+    public static boolean printUserInputMessage(String message) {
+        System.out.println();
+        System.out.println(message);
+        System.out.println();
+        return true;
     }
 }
